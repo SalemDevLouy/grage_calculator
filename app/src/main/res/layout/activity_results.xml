@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgc"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvSemesterAverage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sesmester Grade : "
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginBottom="6dp"
+        android:padding="10dp"
+        android:background="@color/primary"
+        android:textColor="@color/black" />
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="To home"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/secondry"
+        android:textColor="@color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewModules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
+</LinearLayout>
