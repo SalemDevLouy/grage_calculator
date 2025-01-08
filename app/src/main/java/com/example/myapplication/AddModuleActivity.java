@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddModuleActivity extends AppCompatActivity {
     private EditText etName, etCoefficient, etTestPercentage,
-            etTPPercentage, etTDPercentage, etTest, etPractical, etProject;
+            etTPPercentage, etTDPercentage, etTest, etTP, etTD;
     private Button btnSave , btnReturn;
     private DBHelper dbHelper;
 
@@ -25,8 +25,8 @@ public class AddModuleActivity extends AppCompatActivity {
         etTPPercentage = findViewById(R.id.etPracticalPercentage);
         etTDPercentage = findViewById(R.id.etProjectPercentage);
         etTest = findViewById(R.id.etTest);
-        etPractical = findViewById(R.id.etPractical);
-        etProject = findViewById(R.id.etProject);
+        etTP = findViewById(R.id.etPractical);
+        etTD = findViewById(R.id.etProject);
         btnSave = findViewById(R.id.btnSave);
         btnReturn = findViewById(R.id.btnReturn);
         dbHelper = new DBHelper(this);
@@ -49,8 +49,8 @@ public class AddModuleActivity extends AppCompatActivity {
         String practicalPercentageStr = etTPPercentage.getText().toString().trim();
         String projectPercentageStr = etTDPercentage.getText().toString().trim();
         String testStr = etTest.getText().toString().trim();
-        String practicalStr = etPractical.getText().toString().trim();
-        String projectStr = etProject.getText().toString().trim();
+        String practicalStr = etTP.getText().toString().trim();
+        String projectStr = etTD.getText().toString().trim();
 
 
         if (name.isEmpty() || coefficientStr.isEmpty() || testPercentageStr.isEmpty() ||
@@ -100,7 +100,7 @@ public class AddModuleActivity extends AppCompatActivity {
             Toast.makeText(this, " Added Successfully.", Toast.LENGTH_SHORT).show();
             finish();
         } else {
-            Toast.makeText(this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Something went wrong Or module already exist", Toast.LENGTH_SHORT).show();
         }
     }
 }

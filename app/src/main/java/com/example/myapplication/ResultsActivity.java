@@ -120,7 +120,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     private void showUpdateDialog(Module module) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Update" + module.getName());
+        builder.setTitle("Update : " + module.getName() + "Module");
 
 
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_update_module, null);
@@ -135,19 +135,29 @@ public class ResultsActivity extends AppCompatActivity {
         builder.setView(view);
 
 
-        builder.setPositiveButton("Update", (dialog, which) -> {
+        builder.setPositiveButton("Update : ", (dialog, which) -> {
             try {
                 double test = Double.parseDouble(etTest.getText().toString());
                 double practical = Double.parseDouble(etPractical.getText().toString());
                 double project = Double.parseDouble(etProject.getText().toString());
 
+                if (test < 0 || test > 20) {
+                    Toast.makeText(this, "Exament Point must be 0 to 20", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (practical < 0 || practical > 20) {
+                    Toast.makeText(this, "TP Point must be 0 to 20", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (project < 0 || project > 20) {
+                    Toast.makeText(this, "TD Point must be 0 to 20", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                dbHelper.updateModule(module.getId(), module.getName(), module.getCoefficient(),
-                        test, practical, project, module.getTestPercentage(),
-                        module.getPracticalPercentage(), module.getProjectPercentage());
+                dbHelper.updateModule(module.getId(),test, practical, project);
 
 
-                loadModules();
+//                loadModules();
                 adapter.notifyDataSetChanged();
                 displaySemesterAverage();
                 Toast.makeText(ResultsActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();

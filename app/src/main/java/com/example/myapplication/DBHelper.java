@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
             + COLUMN_PROJECT_PERCENTAGE + " REAL,"
             + COLUMN_AVERAGE + " REAL" + ")";
 
-    // Constructor
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -59,6 +59,19 @@ public class DBHelper extends SQLiteOpenHelper {
                              double testPercentage, double practicalPercentage, double projectPercentage, double average) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        Cursor cursor = db.query(TABLE_MODULES,
+                new String[]{COLUMN_NAME},
+                COLUMN_NAME + " = ?",
+                new String[]{name},
+                null, null, null);
+
+        if (cursor != null && cursor.getCount() > 0) {
+
+            cursor.close();
+            Log.e("DBHelper", "Module already exists: " + name);
+            return false;
+        }
         values.put(COLUMN_NAME, name);
         values.put(COLUMN_COEFFICIENT, coefficient);
         values.put(COLUMN_TEST, test);
@@ -92,18 +105,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
-    public boolean updateModule(int id, String name, double coefficient, double test, double practical, double project,
-                                double testPercentage, double practicalPercentage, double projectPercentage) {
+    public boolean updateModule(int id, double test, double practical, double project) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_COEFFICIENT, coefficient);
         values.put(COLUMN_TEST, test);
         values.put(COLUMN_PRACTICAL, practical);
         values.put(COLUMN_PROJECT, project);
-        values.put(COLUMN_TEST_PERCENTAGE, testPercentage);
-        values.put(COLUMN_PRACTICAL_PERCENTAGE, practicalPercentage);
-        values.put(COLUMN_PROJECT_PERCENTAGE, projectPercentage);
+
 
         int result = db.update(TABLE_MODULES, values, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         return result > 0;
